@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    env_file: .env
+    ports:
+      - 127.0.0.1:3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    env_file: .env
+    links:
+      - mysql
+    ports:
+      - 18080:80
+    volumes:
+      - /sessions
+volumes:
+  mysql: ~
